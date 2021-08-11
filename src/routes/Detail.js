@@ -11,7 +11,7 @@ const GET_MOVIE = gql`
       medium_cover_image
       language
       rating
-      description_intro
+      summary
     }
   }
 `;
@@ -40,7 +40,7 @@ const Subtitle = styled.h4`
   margin-bottom: 10px;
 `;
 
-const Description = styled.p`
+const Summary = styled.p`
   font-size: 28px;
 `;
 
@@ -53,7 +53,7 @@ const Poster = styled.div`
 export default () => {
   const { id } = useParams();
   const { loading, data } = useQuery(GET_MOVIE, {
-    variables: { id }
+    variables: { id: +id }
   });
   console.log(`data:  ${data}`)
   return (
@@ -64,7 +64,7 @@ export default () => {
         {!loading && data.movie && ( //JSX에서는 하나의 부모요소로 감싸주어야함
           <>
           <Subtitle>Rating: {data.movie.rating}</Subtitle>
-          <Description>{data.movie.description_intro} </Description>
+          <Summary>{data.movie.summary} </Summary>
           </>
         )}
         
