@@ -18,10 +18,12 @@ const Poster = styled.div`
   background-position: center center;
 `;
 
-export default ({ id, bg }) => (
+const Movie = ({ id, bg }) => (
   <Container>
     <Link to={`/${id}`}>
       <Poster bg={bg} />
     </Link>
   </Container>
 );
+
+export default Movie;

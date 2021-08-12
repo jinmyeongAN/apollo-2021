@@ -7,11 +7,13 @@ import styled from "styled-components";
 const GET_MOVIE = gql`
   query getMovie($id: Int!) {
     movie(id: $id) {
-      title
-      medium_cover_image
-      language
-      rating
-      summary
+    id
+    title
+    rating
+    year
+    summary
+    medium_cover_image
+    language
     }
   }
 `;
@@ -50,16 +52,18 @@ const Poster = styled.div`
   background-color: transparent;
 `;
 
-export default () => {
+const Detail = () => {
   const { id } = useParams();
+  ;
   const { loading, data } = useQuery(GET_MOVIE, {
     variables: { id: +id }
   });
+  console.log(`ID: ${typeof(+id)}`)
   console.log(`data:  ${data}`)
   return (
     <Container>
       <Column>
-        <Title>{loading ? "Loading..." : data.movie.title}</Title>
+        <Title>{loading ? "Loading..." : (data.movie && data.movie.title)}</Title>
         
         {!loading && data.movie && ( //JSX에서는 하나의 부모요소로 감싸주어야함
           <>
@@ -73,3 +77,5 @@ export default () => {
     </Container>
   );
 };
+
+export default Detail;
